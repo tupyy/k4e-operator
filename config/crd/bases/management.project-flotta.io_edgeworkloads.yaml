@@ -36,6 +36,8 @@ spec:
           spec:
             description: EdgeWorkloadSpec defines the desired state of EdgeWorkload
             properties:
+              cron:
+                type: string
               data:
                 properties:
                   egress:
@@ -7218,6 +7220,8 @@ spec:
                       type: string
                   type: object
                 type: array
+              rootles:
+                type: boolean
               type:
                 type: string
             required:
