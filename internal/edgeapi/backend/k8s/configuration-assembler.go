@@ -316,6 +316,7 @@ func (a *ConfigurationAssembler) toWorkloadList(ctx context.Context, logger *zap
 
 		workload := models.Workload{
 			Name:          edgeworkload.Name,
+			Kind:          edgeworkload.Kind,
 			Namespace:     edgeworkload.Namespace,
 			Annotations:   utils.FilterByPodmanPrefix(edgeworkload.Annotations),
 			Labels:        utils.FilterByPodmanPrefix(edgeworkload.Labels),

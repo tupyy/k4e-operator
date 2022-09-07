@@ -1114,6 +1114,10 @@ func init() {
         "imageRegistries": {
           "$ref": "#/definitions/image-registries"
         },
+        "kind": {
+          "description": "Kind of workload",
+          "type": "string"
+        },
         "labels": {
           "description": "Workload labels",
           "type": "object",
@@ -2334,6 +2338,10 @@ func init() {
         },
         "imageRegistries": {
           "$ref": "#/definitions/image-registries"
+        },
+        "kind": {
+          "description": "Kind of workload",
+          "type": "string"
         },
         "labels": {
           "description": "Workload labels",

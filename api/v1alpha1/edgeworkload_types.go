@@ -108,6 +108,7 @@ type EdgeWorkloadType string
 
 const (
 	PodWorkloadType EdgeWorkloadType = "pod"
+	K8sWorkloadType EdgeWorkloadType = "k8s"
 )
 
 // EdgeWorkloadStatus defines the observed state of EdgeWorkload
