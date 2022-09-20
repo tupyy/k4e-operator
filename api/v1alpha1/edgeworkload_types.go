@@ -35,7 +35,8 @@ type EdgeWorkloadSpec struct {
 	Metrics         *ContainerMetricsConfiguration `json:"metrics,omitempty"`
 	Profiles        []*WorkloadProfile             `json:"profiles,omitempty"`
 	Cron            string                         `json:"cron,omitempty"`
-	Rootless        bool                           `json:"rootles,omitempty"`
+	Rootless        bool                           `json:"rootless,omitempty"`
+	Retry           *Retry                         `json:"retry,omitempty"`
 
 	// LogCollection is the logCollection property to be used to collect logs
 	// from this endpoint. This key is what is defined on the edgedevice
@@ -100,8 +101,28 @@ type Pod struct {
 }
 
 type WorkloadProfile struct {
-	Name       string   `json:"name,omitempty"`
-	Conditions []string `json:"conditions,omitempty"`
+	Name       string                     `json:"name,omitempty"`
+	Conditions []WorkloadProfileCondition `json:"conditions,omitempty"`
+}
+
+type WorkloadProfileCondition struct {
+	Name string `json:"name,omitempty"`
+	Cpu  int32  `json:"cpu,omitempty"`
+}
+
+type Retry struct {
+	ConstantBackoff    ConstantBackoffRetry    `json:"constantBackoff,omitempty"`
+	ExponentialBackoff ExponentialBackoffRetry `json:"exponentialBackoff,omitempty"`
+}
+
+type ConstantBackoffRetry struct {
+	PeriodSeconds int32 `json:"periodSeconds,omitempty"`
+}
+
+type ExponentialBackoffRetry struct {
+	InitialIntervalSeconds int32 `json:"initialIntervalSeconds,omitempty"`
+	RandomizationFactor    int32 `json:"randomizationFactor,omitempty"`
+	Multiplier             int32 `json:"multiplier,omitempty"`
 }
 
 type EdgeWorkloadType string

@@ -7214,13 +7214,40 @@ spec:
                   properties:
                     conditions:
                       items:
-                        type: string
+                        properties:
+                          cpu:
+                            format: int32
+                            type: integer
+                          name:
+                            type: string
+                        type: object
                       type: array
                     name:
                       type: string
                   type: object
                 type: array
-              rootles:
+              retry:
+                properties:
+                  constantBackoff:
+                    properties:
+                      periodSeconds:
+                        format: int32
+                        type: integer
+                    type: object
+                  exponentialBackoff:
+                    properties:
+                      initialIntervalSeconds:
+                        format: int32
+                        type: integer
+                      multiplier:
+                        format: int32
+                        type: integer
+                      randomizationFactor:
+                        format: int32
+                        type: integer
+                    type: object
+                type: object
+              rootless:
                 type: boolean
               type:
                 type: string

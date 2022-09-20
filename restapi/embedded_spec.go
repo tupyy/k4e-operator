@@ -999,6 +999,38 @@ func init() {
         }
       }
     },
+    "retry": {
+      "type": "object",
+      "properties": {
+        "backoff": {
+          "description": "type of the retry function",
+          "type": "string",
+          "enum": [
+            "constantBackoff",
+            "exponentialBackoff"
+          ]
+        },
+        "initialIntervalSeconds": {
+          "description": "initial interval in seconds for exponential backoff",
+          "type": "integer",
+          "format": "int32"
+        },
+        "multiplier": {
+          "description": "multiplier",
+          "type": "integer",
+          "format": "int32"
+        },
+        "periodSeconds": {
+          "description": "constant interval period in seconds",
+          "type": "integer",
+          "format": "int32"
+        },
+        "randomizationFactor": {
+          "description": "randomization factor for exponential backoff",
+          "type": "number"
+        }
+      }
+    },
     "s3-storage-configuration": {
       "type": "object",
       "properties": {
@@ -1146,6 +1178,9 @@ func init() {
             "$ref": "#/definitions/workload-profile"
           }
         },
+        "retry": {
+          "$ref": "#/definitions/retry"
+        },
         "rootless": {
           "description": "permission",
           "type": "boolean"
@@ -1168,7 +1203,15 @@ func init() {
         "conditions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "cpu": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
           }
         },
         "name": {
@@ -1447,6 +1490,17 @@ func init() {
         },
         "name": {
           "description": "name of the condition",
+          "type": "string"
+        }
+      }
+    },
+    "WorkloadProfileConditionsItems0": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "integer"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -2224,6 +2278,38 @@ func init() {
         }
       }
     },
+    "retry": {
+      "type": "object",
+      "properties": {
+        "backoff": {
+          "description": "type of the retry function",
+          "type": "string",
+          "enum": [
+            "constantBackoff",
+            "exponentialBackoff"
+          ]
+        },
+        "initialIntervalSeconds": {
+          "description": "initial interval in seconds for exponential backoff",
+          "type": "integer",
+          "format": "int32"
+        },
+        "multiplier": {
+          "description": "multiplier",
+          "type": "integer",
+          "format": "int32"
+        },
+        "periodSeconds": {
+          "description": "constant interval period in seconds",
+          "type": "integer",
+          "format": "int32"
+        },
+        "randomizationFactor": {
+          "description": "randomization factor for exponential backoff",
+          "type": "number"
+        }
+      }
+    },
     "s3-storage-configuration": {
       "type": "object",
       "properties": {
@@ -2371,6 +2457,9 @@ func init() {
             "$ref": "#/definitions/workload-profile"
           }
         },
+        "retry": {
+          "$ref": "#/definitions/retry"
+        },
         "rootless": {
           "description": "permission",
           "type": "boolean"
@@ -2393,7 +2482,7 @@ func init() {
         "conditions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/WorkloadProfileConditionsItems0"
           }
         },
         "name": {

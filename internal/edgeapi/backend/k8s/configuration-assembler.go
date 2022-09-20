@@ -316,7 +316,7 @@ func (a *ConfigurationAssembler) toWorkloadList(ctx context.Context, logger *zap
 
 		workload := models.Workload{
 			Name:          edgeworkload.Name,
-			Kind:          edgeworkload.Kind,
+			Kind:          string(spec.Type),
 			Namespace:     edgeworkload.Namespace,
 			Annotations:   utils.FilterByPodmanPrefix(edgeworkload.Annotations),
 			Labels:        utils.FilterByPodmanPrefix(edgeworkload.Labels),
@@ -329,10 +329,17 @@ func (a *ConfigurationAssembler) toWorkloadList(ctx context.Context, logger *zap
 		}
 
 		for _, p := range edgeworkload.Spec.Profiles {
-			workload.Profiles = append(workload.Profiles, &models.WorkloadProfile{
+			mm := models.WorkloadProfile{
 				Name:       p.Name,
-				Conditions: p.Conditions,
-			})
+				Conditions: make([]*models.WorkloadProfileConditionsItems0, 0),
+			}
+			for _, c := range p.Conditions {
+				mm.Conditions = append(mm.Conditions, &models.WorkloadProfileConditionsItems0{
+					Name: c.Name,
+					CPU:  int64(c.Cpu),
+				})
+			}
+			workload.Profiles = append(workload.Profiles, &mm)
 		}
 
 		authFile, err := a.getAuthFile(ctx, spec.ImageRegistries, edgeworkload.Namespace)

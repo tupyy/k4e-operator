@@ -350,6 +350,8 @@ definitions:
       rootless:
         type: boolean
         description: permission
+      retry:
+        $ref: '#/definitions/retry'
       data:
         $ref: '#/definitions/data-configuration'
       imageRegistries:
@@ -720,7 +722,37 @@ definitions:
       conditions:
         type: array
         items:
-          type: string
+          type: object
+          properties:
+            name:
+              type: string
+            cpu:
+              type: integer
+
+  retry:
+    type: object
+    properties:
+      backoff:
+        type: string
+        description: type of the retry function
+        enum:
+          - constantBackoff
+          - exponentialBackoff
+      periodSeconds:
+        type: integer
+        format: int32
+        description: constant interval period in seconds
+      initialIntervalSeconds:
+        type: integer
+        format: int32
+        description: initial interval in seconds for exponential backoff
+      randomizationFactor:
+        type: number
+        description: randomization factor for exponential backoff
+      multiplier:
+        type: integer
+        format: int32
+        description: multiplier
 
   heartbeat:
     type: object
