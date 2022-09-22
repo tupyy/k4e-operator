@@ -107,7 +107,7 @@ type WorkloadProfile struct {
 
 type WorkloadProfileCondition struct {
 	Name string `json:"name,omitempty"`
-	Cpu  int32  `json:"cpu,omitempty"`
+	Cpu  *int32 `json:"cpu,omitempty"`
 }
 
 type Retry struct {

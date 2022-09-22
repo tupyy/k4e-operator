@@ -727,7 +727,12 @@ definitions:
             name:
               type: string
             cpu:
-              type: integer
+              $ref: '#/definitions/resource'
+  resource:
+    type: object
+    properties:
+      cpu:
+        type: integer
 
   retry:
     type: object

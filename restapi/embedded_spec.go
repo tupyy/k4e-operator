@@ -999,6 +999,14 @@ func init() {
         }
       }
     },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "integer"
+        }
+      }
+    },
     "retry": {
       "type": "object",
       "properties": {
@@ -1206,7 +1214,7 @@ func init() {
             "type": "object",
             "properties": {
               "cpu": {
-                "type": "integer"
+                "$ref": "#/definitions/resource"
               },
               "name": {
                 "type": "string"
@@ -1498,7 +1506,7 @@ func init() {
       "type": "object",
       "properties": {
         "cpu": {
-          "type": "integer"
+          "$ref": "#/definitions/resource"
         },
         "name": {
           "type": "string"
@@ -2275,6 +2283,14 @@ func init() {
         "certificate": {
           "description": "Client certificate to be used in future operations",
           "type": "string"
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "integer"
         }
       }
     },

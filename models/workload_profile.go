@@ -124,7 +124,7 @@ func (m *WorkloadProfile) UnmarshalBinary(b []byte) error {
 type WorkloadProfileConditionsItems0 struct {
 
 	// cpu
-	CPU int64 `json:"cpu,omitempty"`
+	CPU *Resource `json:"cpu,omitempty"`
 
 	// name
 	Name string `json:"name,omitempty"`
@@ -132,11 +132,64 @@ type WorkloadProfileConditionsItems0 struct {
 
 // Validate validates this workload profile conditions items0
 func (m *WorkloadProfileConditionsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCPU(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this workload profile conditions items0 based on context it is used
+func (m *WorkloadProfileConditionsItems0) validateCPU(formats strfmt.Registry) error {
+	if swag.IsZero(m.CPU) { // not required
+		return nil
+	}
+
+	if m.CPU != nil {
+		if err := m.CPU.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cpu")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cpu")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this workload profile conditions items0 based on the context it is used
 func (m *WorkloadProfileConditionsItems0) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCPU(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *WorkloadProfileConditionsItems0) contextValidateCPU(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CPU != nil {
+		if err := m.CPU.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cpu")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cpu")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

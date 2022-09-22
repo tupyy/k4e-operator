@@ -334,10 +334,15 @@ func (a *ConfigurationAssembler) toWorkloadList(ctx context.Context, logger *zap
 				Conditions: make([]*models.WorkloadProfileConditionsItems0, 0),
 			}
 			for _, c := range p.Conditions {
-				mm.Conditions = append(mm.Conditions, &models.WorkloadProfileConditionsItems0{
+				mc := models.WorkloadProfileConditionsItems0{
 					Name: c.Name,
-					CPU:  int64(c.Cpu),
-				})
+				}
+				if c.Cpu != nil {
+					mc.CPU = &models.Resource{
+						CPU: int64(*c.Cpu),
+					}
+				}
+				mm.Conditions = append(mm.Conditions, &mc)
 			}
 			workload.Profiles = append(workload.Profiles, &mm)
 		}
